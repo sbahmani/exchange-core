@@ -265,9 +265,17 @@ public final class DiskSerializationProcessor implements ISerializationProcessor
             // skip queries
             return;
         }
-
+        //This is a nasty way of fixing the "file exists" exception on core startup and replay from journal!
+        //Passing +1 of a variable to a method is not readable!
+        //TODO: refactor after making sure its semantic is correct
         if (channel == null) {
-            startNewFile(cmd.timestamp);
+            final Path fileName = resolveJournalPath(filesCounter+1, baseSnapshotId);
+            if (Files.exists(fileName)) {
+                raf = new RandomAccessFile(fileName.toString(), "rwd");
+                channel = raf.getChannel();
+            } else {
+                startNewFile(cmd.timestamp);
+            }
         }
 
         final ByteBuffer buffer = journalWriteBuffer;
