@@ -727,7 +727,7 @@ public final class RiskEngine implements WriteBytesMarshallable {
 
                 makerSizeForThisHandler += size;
             }
-            allMakerFee += (ev.matchedOrderMakerFee != -1 ? ev.matchedOrderMakerFee : spec.makerFee);
+            allMakerFee += (ev.matchedOrderMakerFee != -1 ? ev.matchedOrderMakerFee : spec.makerFee) * ev.size;
             ev = ev.nextEvent;
         }
 
@@ -737,7 +737,7 @@ public final class RiskEngine implements WriteBytesMarshallable {
 
         if (takerSizeForThisHandler != 0 || makerSizeForThisHandler != 0) {
 
-            fees.addToValue(quoteCurrency, ((orderTakerFee != -1) ? orderTakerFee : spec.takerFee) * takerSizeForThisHandler + (allMakerFee) * makerSizeForThisHandler);
+            fees.addToValue(quoteCurrency, ((orderTakerFee != -1) ? orderTakerFee : spec.takerFee) * takerSizeForThisHandler + allMakerFee);
         }
     }
 
@@ -776,7 +776,7 @@ public final class RiskEngine implements WriteBytesMarshallable {
                 maker.accounts.addToValue(quoteCurrency, gainedAmountInQuoteCurrency - ((ev.matchedOrderMakerFee != -1) ? ev.matchedOrderMakerFee : spec.makerFee) * size);
                 makerSizeForThisHandler += size;
             }
-            allMakerFee += (ev.matchedOrderMakerFee != -1 ? ev.matchedOrderMakerFee : spec.makerFee);
+            allMakerFee += (ev.matchedOrderMakerFee != -1 ? ev.matchedOrderMakerFee : spec.makerFee) * ev.size;
             ev = ev.nextEvent;
         }
 
@@ -793,7 +793,7 @@ public final class RiskEngine implements WriteBytesMarshallable {
         }
 
         if (takerSizeForThisHandler != 0 || makerSizeForThisHandler != 0) {
-            fees.addToValue(quoteCurrency, ((cmd.orderTakerFee != -1) ? cmd.orderTakerFee : spec.takerFee) * takerSizeForThisHandler + allMakerFee * makerSizeForThisHandler);
+            fees.addToValue(quoteCurrency, ((cmd.orderTakerFee != -1) ? cmd.orderTakerFee : spec.takerFee) * takerSizeForThisHandler + allMakerFee);
         }
     }
 
