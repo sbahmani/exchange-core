@@ -42,9 +42,11 @@ public final class OrderCommand implements IOrder {
     public long size;
 
     @Getter
+    @Builder.Default
     public long orderTakerFee = -1;
 
     @Getter
+    @Builder.Default
     public long orderMakerFee = -1;
 
     @Getter
