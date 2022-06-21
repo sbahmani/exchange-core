@@ -61,7 +61,9 @@ public final class MatcherTradeEvent {
 
     // frozen price from BID order owner (depends on activeOrderAction)
     public long bidderHoldPrice;
+    @Builder.Default
     public long matchedOrderTakerFee = -1;
+    @Builder.Default
     public long matchedOrderMakerFee = -1;
 
     // reference to next event in chain
