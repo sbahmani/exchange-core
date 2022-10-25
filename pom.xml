@@ -468,15 +468,16 @@
     </profiles>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/
-            </url>
+            <id>central</id>
+            <name>Tapnex - Mobinnet Artifactory-releases</name>
+            <url>https://artifactory.tapnex.ir:443/artifactory/mvn</url>
         </repository>
+        <snapshotRepository>
+            <id>snapshots</id>
+            <name>Tapnex - Mobinnet Artifactory-snapshots</name>
+            <url>https://artifactory.tapnex.ir:443/artifactory/mvn</url>
+        </snapshotRepository>
     </distributionManagement>
 
 </project>
